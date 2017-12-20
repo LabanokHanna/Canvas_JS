@@ -1,0 +1,92 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title>Page Title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0">
+</head>
+
+<body>
+	<canvas id="canvas" width="200" height="200"></canvas>
+
+	<script>
+		
+
+
+		var circle = function(x, y, radius, fillCircle) {
+			ctx.beginPath();
+			ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+			if (fillCircle) {
+				ctx.fill();
+			} else {
+				ctx.stroke();
+			}
+		};
+
+		var drawBee = function(x, y) {
+			//1
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = "Black";
+			ctx.fillStyle = "Gold";
+
+			//2
+			circle(x, y, 8, true);
+			circle(x, y, 8, false);
+
+			circle(x - 5, y - 11, 5, false);
+			circle(x + 5, y - 11, 5, false);
+
+			circle(x - 2, y - 1, 2, false);
+			circle(x + 2, y - 1, 2, false);
+		};
+
+		//drawBee(30, 30);
+		
+		
+		var update = function(coordinate) {
+			//1
+			var offset = Math.random() * 4 - 2;
+			//2
+			coordinate += offset;
+			
+			//3
+			if (coordinate > 200) {
+				coordinate = 200;
+			}
+			
+			//4
+			if(coordinate < 0) {
+				coordinate = 0;
+			}
+			
+			//5
+			return coordinate;
+		};
+		
+		
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		
+		var x = 100;
+		var y = 100;
+		
+		setInterval(function() {
+			//1
+			ctx.clearRect (0, 0, 200, 200);
+			
+			//2
+			drawBee(x, y);
+			//3
+			x = update(x);
+			y = update(y);
+			
+			//4
+			//ctx.strokeRect (0, 0, 200, 200);
+		}, 30 );
+	</script>
+
+</body>
+
+</html>
